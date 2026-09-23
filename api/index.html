@@ -1,0 +1,1868 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Assemble raster tiles into one validated virtual mosaic (VRT)">
+      
+      
+      
+        <link rel="canonical" href="https://lambdageo.github.io/geomosaic/api/">
+      
+      
+        <link rel="prev" href="../recipes/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>API reference - geomosaic</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="green">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="geomosaic" class="md-header__button md-logo" aria-label="geomosaic" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            geomosaic
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="green"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/LambdaGeo/geomosaic" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    geomosaic
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="geomosaic" class="md-nav__button md-logo" aria-label="geomosaic" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    geomosaic
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/LambdaGeo/geomosaic" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    geomosaic
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation checks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recipes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.discover_tiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        discover_tiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.build_mosaic_contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build_mosaic_contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.write_vrt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_vrt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.inspect_tile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        inspect_tile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.MosaicContract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MosaicContract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.TileInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TileInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.discover_tiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        discover_tiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.build_mosaic_contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build_mosaic_contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.write_vrt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_vrt
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.inspect_tile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        inspect_tile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.MosaicContract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MosaicContract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geomosaic.TileInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TileInfo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h1>
+<p>Generated from the docstrings in <code>src/geomosaic/core.py</code>. Everything
+below is importable from the top-level package:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">geomosaic</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">discover_tiles</span><span class="p">,</span> <span class="n">inspect_tile</span><span class="p">,</span> <span class="n">build_mosaic_contract</span><span class="p">,</span> <span class="n">write_vrt</span><span class="p">,</span>
+    <span class="n">TileInfo</span><span class="p">,</span> <span class="n">MosaicContract</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="geomosaic.discover_tiles" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">discover_tiles</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s1">'*'</span><span class="p">,</span> <span class="n">extensions</span><span class="o">=</span><span class="p">(</span><span class="s1">'.tif'</span><span class="p">,</span> <span class="s1">'.tiff'</span><span class="p">))</span></code>
+
+<a href="#geomosaic.discover_tiles" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>List raster files in a directory, sorted by path.</p>
+<p>No naming convention is assumed: the position of each tile is
+derived geometrically by :func:<code>build_mosaic_contract</code>, not from
+its name.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>directory</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> or <span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Directory to search (not recursive).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>pattern</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Glob pattern the file name must match, e.g. <code>"*landcover_2020*"</code>
+to select one product when a directory holds several products
+or dates on the same grid.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;*&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>extensions</code>
+            </td>
+            <td>
+                  <code>tuple of str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Accepted file extensions, compared case-insensitively.</p>
+              </div>
+            </td>
+            <td>
+                  <code>(&#39;.tif&#39;, &#39;.tiff&#39;)</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="FileNotFoundError">FileNotFoundError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If no matching raster is found.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/geomosaic/core.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">discover_tiles</span><span class="p">(</span>
+    <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"*"</span><span class="p">,</span>
+    <span class="n">extensions</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">".tif"</span><span class="p">,</span> <span class="s2">".tiff"</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    List raster files in a directory, sorted by path.</span>
+
+<span class="sd">    No naming convention is assumed: the position of each tile is</span>
+<span class="sd">    derived geometrically by :func:`build_mosaic_contract`, not from</span>
+<span class="sd">    its name.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    directory : str or Path</span>
+<span class="sd">        Directory to search (not recursive).</span>
+<span class="sd">    pattern : str</span>
+<span class="sd">        Glob pattern the file name must match, e.g. ``"*landcover_2020*"``</span>
+<span class="sd">        to select one product when a directory holds several products</span>
+<span class="sd">        or dates on the same grid.</span>
+<span class="sd">    extensions : tuple of str</span>
+<span class="sd">        Accepted file extensions, compared case-insensitively.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    FileNotFoundError</span>
+<span class="sd">        If no matching raster is found.</span>
+<span class="sd">    """</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+    <span class="n">exts</span> <span class="o">=</span> <span class="p">{</span><span class="n">e</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">extensions</span><span class="p">}</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">directory</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">exts</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"No raster (</span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extensions</span><span class="p">)</span><span class="si">}</span><span class="s2">) matching </span><span class="si">{</span><span class="n">pattern</span><span class="si">!r}</span><span class="s2"> found in: </span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2">"</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">files</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="geomosaic.build_mosaic_contract" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">build_mosaic_contract</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">resolution_tolerance</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">offset_tolerance_px</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">allow_overlap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#geomosaic.build_mosaic_contract" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Validate that a list of raster files forms a consistent mosaic and
+derive the pixel position of each file in the mosaic grid.</p>
+<p>Checks, in order (fails fast on the first violation):</p>
+<ul>
+<li>the list is not empty;</li>
+<li>all tiles share the same CRS;</li>
+<li>no tile is rotated, and all are north-up (negative pixel height);</li>
+<li>all tiles share the same pixel size (within <code>resolution_tolerance</code>);</li>
+<li>all tiles share the same dtype, nodata value and band count;</li>
+<li>each tile lands on an <em>integer</em> pixel offset of the mosaic grid
+  (within <code>offset_tolerance_px</code>), which catches sub-pixel
+  misalignment (reprojection error, wrong origin) without relying
+  on any file-naming convention;</li>
+<li>no two tiles overlap, unless <code>allow_overlap=True</code>. Overlapping
+  tiles usually mean that several products or dates sharing the
+  same grid were mixed in one list; in a VRT, the tile listed last
+  would silently hide the others.</li>
+</ul>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>paths</code>
+            </td>
+            <td>
+                  <code>sequence of str or Path</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Raster files to combine (see :func:<code>discover_tiles</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>resolution_tolerance</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum difference in pixel size between tiles, in CRS units.</p>
+              </div>
+            </td>
+            <td>
+                  <code>1e-06</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>offset_tolerance_px</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum distance, in pixels, from a tile's offset to the nearest
+integer pixel position.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0.001</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>allow_overlap</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Accept tiles whose footprints overlap. Where they do, the VRT
+returns the value of the tile that comes last in <code>paths</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="MosaicContract
+
+
+  
+      dataclass
+   (geomosaic.core.MosaicContract)" href="#geomosaic.MosaicContract">MosaicContract</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>With a message naming the offending file(s) and the failed check.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/geomosaic/core.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_mosaic_contract</span><span class="p">(</span>
+    <span class="n">paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">],</span>
+    <span class="n">resolution_tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
+    <span class="n">offset_tolerance_px</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span>
+    <span class="n">allow_overlap</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MosaicContract</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Validate that a list of raster files forms a consistent mosaic and</span>
+<span class="sd">    derive the pixel position of each file in the mosaic grid.</span>
+
+<span class="sd">    Checks, in order (fails fast on the first violation):</span>
+
+<span class="sd">    - the list is not empty;</span>
+<span class="sd">    - all tiles share the same CRS;</span>
+<span class="sd">    - no tile is rotated, and all are north-up (negative pixel height);</span>
+<span class="sd">    - all tiles share the same pixel size (within ``resolution_tolerance``);</span>
+<span class="sd">    - all tiles share the same dtype, nodata value and band count;</span>
+<span class="sd">    - each tile lands on an *integer* pixel offset of the mosaic grid</span>
+<span class="sd">      (within ``offset_tolerance_px``), which catches sub-pixel</span>
+<span class="sd">      misalignment (reprojection error, wrong origin) without relying</span>
+<span class="sd">      on any file-naming convention;</span>
+<span class="sd">    - no two tiles overlap, unless ``allow_overlap=True``. Overlapping</span>
+<span class="sd">      tiles usually mean that several products or dates sharing the</span>
+<span class="sd">      same grid were mixed in one list; in a VRT, the tile listed last</span>
+<span class="sd">      would silently hide the others.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    paths : sequence of str or Path</span>
+<span class="sd">        Raster files to combine (see :func:`discover_tiles`).</span>
+<span class="sd">    resolution_tolerance : float</span>
+<span class="sd">        Maximum difference in pixel size between tiles, in CRS units.</span>
+<span class="sd">    offset_tolerance_px : float</span>
+<span class="sd">        Maximum distance, in pixels, from a tile's offset to the nearest</span>
+<span class="sd">        integer pixel position.</span>
+<span class="sd">    allow_overlap : bool</span>
+<span class="sd">        Accept tiles whose footprints overlap. Where they do, the VRT</span>
+<span class="sd">        returns the value of the tile that comes last in ``paths``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MosaicContract</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        With a message naming the offending file(s) and the failed check.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"The list of tiles is empty."</span><span class="p">)</span>
+
+    <span class="n">tiles</span> <span class="o">=</span> <span class="p">[</span><span class="n">inspect_tile</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">]</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">tiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">crs</span> <span class="o">!=</span> <span class="n">ref</span><span class="o">.</span><span class="n">crs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Inconsistent CRS: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">crs</span><span class="si">}</span><span class="s2"> (from </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+
+    <span class="n">px_w_ref</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">px_h_ref</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mf">1e-9</span> <span class="ow">or</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mf">1e-9</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Rotated tiles are not supported: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Only north-up rasters (negative pixel height) are supported: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> has "</span>
+                <span class="sa">f</span><span class="s2">"pixel height </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">px_w_ref</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">resolution_tolerance</span> <span class="ow">or</span> \
+           <span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="n">px_h_ref</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">resolution_tolerance</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Inconsistent resolution: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> has pixel size "</span>
+                <span class="sa">f</span><span class="s2">"(</span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s2">), expected (</span><span class="si">{</span><span class="n">px_w_ref</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">px_h_ref</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="n">ref</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Inconsistent dtype: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> (from </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_same_nodata</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">nodata</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">nodata</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Inconsistent nodata: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">nodata</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">nodata</span><span class="si">}</span><span class="s2"> (from </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">band_count</span> <span class="o">!=</span> <span class="n">ref</span><span class="o">.</span><span class="n">band_count</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Inconsistent band count: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">band_count</span><span class="si">}</span><span class="s2">, expected </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">band_count</span><span class="si">}</span><span class="s2"> (from </span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)"</span>
+            <span class="p">)</span>
+
+    <span class="c1"># Mosaic origin: upper-left corner (minimum x, maximum y)</span>
+    <span class="n">origin_x</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">)</span>
+    <span class="n">origin_y</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">)</span>
+
+    <span class="n">offsets</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+        <span class="n">col_f</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">origin_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">px_w_ref</span>
+        <span class="n">row_f</span> <span class="o">=</span> <span class="p">(</span><span class="n">origin_y</span> <span class="o">-</span> <span class="n">t</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">px_h_ref</span><span class="p">)</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">col_f</span><span class="p">)</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">row_f</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">col_f</span> <span class="o">-</span> <span class="n">col</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">offset_tolerance_px</span> <span class="ow">or</span> <span class="nb">abs</span><span class="p">(</span><span class="n">row_f</span> <span class="o">-</span> <span class="n">row</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">offset_tolerance_px</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Tile not aligned to the pixel grid: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> would land on a fractional "</span>
+                <span class="sa">f</span><span class="s2">"offset (row=</span><span class="si">{</span><span class="n">row_f</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, col=</span><span class="si">{</span><span class="n">col_f</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">); check its origin/reprojection."</span>
+            <span class="p">)</span>
+        <span class="n">offsets</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_overlap</span><span class="p">:</span>
+        <span class="n">pair</span> <span class="o">=</span> <span class="n">_find_overlap</span><span class="p">(</span><span class="n">tiles</span><span class="p">,</span> <span class="n">offsets</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pair</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">tiles</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">)</span>
+            <span class="n">same</span> <span class="o">=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">offsets</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Overlapping tiles: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'land on the same offset '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">str</span><span class="p">(</span><span class="n">offsets</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">'have overlapping footprints'</span><span class="si">}</span><span class="s2">. "</span>
+                <span class="s2">"If the list mixes several products or dates on the same grid, select one "</span>
+                <span class="s2">"(e.g. discover_tiles(directory, pattern=...)); pass allow_overlap=True "</span>
+                <span class="s2">"to accept overlaps (the tile listed last wins)."</span>
+            <span class="p">)</span>
+
+    <span class="n">mosaic_height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">row</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="n">height</span> <span class="k">for</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">_col</span><span class="p">),</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">offsets</span><span class="p">,</span> <span class="n">tiles</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">mosaic_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">col</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="n">width</span> <span class="k">for</span> <span class="p">(</span><span class="n">_row</span><span class="p">,</span> <span class="n">col</span><span class="p">),</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">offsets</span><span class="p">,</span> <span class="n">tiles</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">mosaic_transform</span> <span class="o">=</span> <span class="p">(</span><span class="n">px_w_ref</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">origin_x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">px_h_ref</span><span class="p">,</span> <span class="n">origin_y</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">MosaicContract</span><span class="p">(</span>
+        <span class="n">mosaic_height</span><span class="o">=</span><span class="n">mosaic_height</span><span class="p">,</span>
+        <span class="n">mosaic_width</span><span class="o">=</span><span class="n">mosaic_width</span><span class="p">,</span>
+        <span class="n">mosaic_transform</span><span class="o">=</span><span class="n">mosaic_transform</span><span class="p">,</span>
+        <span class="n">crs</span><span class="o">=</span><span class="n">ref</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span>
+        <span class="n">tiles</span><span class="o">=</span><span class="n">tiles</span><span class="p">,</span>
+        <span class="n">tile_offsets</span><span class="o">=</span><span class="n">offsets</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="geomosaic.write_vrt" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">write_vrt</span><span class="p">(</span><span class="n">contract</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">bands</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">relative_paths</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#geomosaic.write_vrt" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Write a GDAL Virtual Raster (<code>.vrt</code>) that places each tile of the
+contract at its derived position. Pure Python: it does not need the
+GDAL Python bindings (<code>osgeo.gdal.BuildVRT</code>).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>contract</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="MosaicContract
+
+
+  
+      dataclass
+   (geomosaic.core.MosaicContract)" href="#geomosaic.MosaicContract">MosaicContract</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Output of :func:<code>build_mosaic_contract</code>. Requiring it by type
+means a VRT can only be written for a validated tile set.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>output_path</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> or <span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Destination <code>.vrt</code> file. Parent directories are created.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>bands</code>
+            </td>
+            <td>
+                  <code>int or sequence of int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Source band(s) to include, 1-based. The VRT gets one band per
+entry, in the given order. Default: band 1.</p>
+              </div>
+            </td>
+            <td>
+                  <code>1</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>relative_paths</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Reference tiles relative to the VRT location instead of by
+absolute path, so the VRT keeps working when the directory
+holding it and the tiles is moved or shared.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>output_path</code>.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/geomosaic/core.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">write_vrt</span><span class="p">(</span>
+    <span class="n">contract</span><span class="p">:</span> <span class="n">MosaicContract</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">bands</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">relative_paths</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Write a GDAL Virtual Raster (``.vrt``) that places each tile of the</span>
+<span class="sd">    contract at its derived position. Pure Python: it does not need the</span>
+<span class="sd">    GDAL Python bindings (``osgeo.gdal.BuildVRT``).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    contract : MosaicContract</span>
+<span class="sd">        Output of :func:`build_mosaic_contract`. Requiring it by type</span>
+<span class="sd">        means a VRT can only be written for a validated tile set.</span>
+<span class="sd">    output_path : str or Path</span>
+<span class="sd">        Destination ``.vrt`` file. Parent directories are created.</span>
+<span class="sd">    bands : int or sequence of int</span>
+<span class="sd">        Source band(s) to include, 1-based. The VRT gets one band per</span>
+<span class="sd">        entry, in the given order. Default: band 1.</span>
+<span class="sd">    relative_paths : bool</span>
+<span class="sd">        Reference tiles relative to the VRT location instead of by</span>
+<span class="sd">        absolute path, so the VRT keeps working when the directory</span>
+<span class="sd">        holding it and the tiles is moved or shared.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Path</span>
+<span class="sd">        ``output_path``.</span>
+<span class="sd">    """</span>
+    <span class="n">output_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+    <span class="n">band_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">bands</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bands</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">bands</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">band_list</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"`bands` is empty."</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">band_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">contract</span><span class="o">.</span><span class="n">band_count</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Band </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2"> out of range: tiles have </span><span class="si">{</span><span class="n">contract</span><span class="o">.</span><span class="n">band_count</span><span class="si">}</span><span class="s2"> band(s) (1-based)."</span><span class="p">)</span>
+
+    <span class="n">gdal_dtype</span> <span class="o">=</span> <span class="n">_GDAL_DTYPE_MAP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">contract</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">gdal_dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported dtype for VRT: </span><span class="si">{</span><span class="n">contract</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">vrt_dir</span> <span class="o">=</span> <span class="n">output_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">source_ref</span><span class="p">(</span><span class="n">tile</span><span class="p">:</span> <span class="n">TileInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">relative_paths</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">resolve</span><span class="p">(),</span> <span class="n">vrt_dir</span><span class="p">),</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">tile</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">resolve</span><span class="p">()),</span> <span class="mi">0</span>
+
+    <span class="n">nodata_tag</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"    &lt;NoDataValue&gt;</span><span class="si">{</span><span class="n">_format_nodata</span><span class="p">(</span><span class="n">contract</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/NoDataValue&gt;</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="k">if</span> <span class="n">contract</span><span class="o">.</span><span class="n">nodata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">""</span>
+    <span class="p">)</span>
+
+    <span class="n">band_blocks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">vrt_band</span><span class="p">,</span> <span class="n">src_band</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">band_list</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">tile</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">contract</span><span class="o">.</span><span class="n">tiles</span><span class="p">,</span> <span class="n">contract</span><span class="o">.</span><span class="n">tile_offsets</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">filename</span><span class="p">,</span> <span class="n">relative</span> <span class="o">=</span> <span class="n">source_ref</span><span class="p">(</span><span class="n">tile</span><span class="p">)</span>
+            <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"    &lt;SimpleSource&gt;</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="sa">f</span><span class="s1">'      &lt;SourceFilename relativeToVRT="</span><span class="si">{</span><span class="n">relative</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">escape</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="si">}</span><span class="s1">&lt;/SourceFilename&gt;</span><span class="se">\n</span><span class="s1">'</span>
+                <span class="sa">f</span><span class="s2">"      &lt;SourceBand&gt;</span><span class="si">{</span><span class="n">src_band</span><span class="si">}</span><span class="s2">&lt;/SourceBand&gt;</span><span class="se">\n</span><span class="s2">"</span>
+                <span class="sa">f</span><span class="s1">'      &lt;SrcRect xOff="0" yOff="0" xSize="</span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s1">" ySize="</span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">height</span><span class="si">}</span><span class="s1">"/&gt;</span><span class="se">\n</span><span class="s1">'</span>
+                <span class="sa">f</span><span class="s1">'      &lt;DstRect xOff="</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">" yOff="</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s1">" xSize="</span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">width</span><span class="si">}</span><span class="s1">" ySize="</span><span class="si">{</span><span class="n">tile</span><span class="o">.</span><span class="n">height</span><span class="si">}</span><span class="s1">"/&gt;</span><span class="se">\n</span><span class="s1">'</span>
+                <span class="sa">f</span><span class="s2">"    &lt;/SimpleSource&gt;</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="p">)</span>
+        <span class="n">band_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">'  &lt;VRTRasterBand dataType="</span><span class="si">{</span><span class="n">gdal_dtype</span><span class="si">}</span><span class="s1">" band="</span><span class="si">{</span><span class="n">vrt_band</span><span class="si">}</span><span class="s1">"&gt;</span><span class="se">\n</span><span class="s1">'</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">nodata_tag</span><span class="si">}{</span><span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+            <span class="sa">f</span><span class="s2">"  &lt;/VRTRasterBand&gt;</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="p">)</span>
+
+    <span class="n">px_w</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">ox</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">px_h</span><span class="p">,</span> <span class="n">oy</span> <span class="o">=</span> <span class="n">contract</span><span class="o">.</span><span class="n">mosaic_transform</span>
+    <span class="n">vrt_xml</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s1">'&lt;VRTDataset rasterXSize="</span><span class="si">{</span><span class="n">contract</span><span class="o">.</span><span class="n">mosaic_width</span><span class="si">}</span><span class="s1">" rasterYSize="</span><span class="si">{</span><span class="n">contract</span><span class="o">.</span><span class="n">mosaic_height</span><span class="si">}</span><span class="s1">"&gt;</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="sa">f</span><span class="s2">"  &lt;SRS&gt;</span><span class="si">{</span><span class="n">escape</span><span class="p">(</span><span class="n">contract</span><span class="o">.</span><span class="n">crs</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">''</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/SRS&gt;</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"  &lt;GeoTransform&gt;</span><span class="si">{</span><span class="n">ox</span><span class="si">!r}</span><span class="s2">, </span><span class="si">{</span><span class="n">px_w</span><span class="si">!r}</span><span class="s2">, 0.0, </span><span class="si">{</span><span class="n">oy</span><span class="si">!r}</span><span class="s2">, 0.0, </span><span class="si">{</span><span class="n">px_h</span><span class="si">!r}</span><span class="s2">&lt;/GeoTransform&gt;</span><span class="se">\n</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">band_blocks</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"&lt;/VRTDataset&gt;</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="p">)</span>
+
+    <span class="n">output_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">output_path</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">vrt_xml</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output_path</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="geomosaic.inspect_tile" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">inspect_tile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
+
+<a href="#geomosaic.inspect_tile" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+        <p>Read the metadata of a raster file (no pixel data).</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/geomosaic/core.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">inspect_tile</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TileInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Read the metadata of a raster file (no pixel data)."""</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">))</span> <span class="k">as</span> <span class="n">ds</span><span class="p">:</span>
+        <span class="n">dtypes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dtypes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Bands with different dtypes are not supported: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> has </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">dtypes</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">TileInfo</span><span class="p">(</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">crs</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span> <span class="k">if</span> <span class="n">ds</span><span class="o">.</span><span class="n">crs</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">transform</span><span class="p">)[:</span><span class="mi">6</span><span class="p">],</span>
+            <span class="n">band_count</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">count</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">nodata</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">nodata</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div><h2 id="data-classes">Data classes<a class="headerlink" href="#data-classes" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="geomosaic.MosaicContract" class="doc doc-heading">
+            <code>MosaicContract</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#geomosaic.MosaicContract" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>A validated tile set: the derived mosaic grid plus the pixel
+offset of each tile inside it (computed from each file's
+geotransform, not from its name).</p>
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>src/geomosaic/core.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MosaicContract</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A validated tile set: the derived mosaic grid plus the pixel</span>
+<span class="sd">    offset of each tile inside it (computed from each file's</span>
+<span class="sd">    geotransform, not from its name)."""</span>
+
+    <span class="n">mosaic_height</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">mosaic_width</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">mosaic_transform</span><span class="p">:</span> <span class="nb">tuple</span>
+    <span class="n">crs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">tiles</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">TileInfo</span><span class="p">]</span>
+    <span class="n">tile_offsets</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>  <span class="c1"># (row_offset, col_offset), same order as `tiles`</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">band_count</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">band_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">nodata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tiles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">nodata</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="geomosaic.TileInfo" class="doc doc-heading">
+            <code>TileInfo</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#geomosaic.TileInfo" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents first">
+
+
+
+        <p>Metadata of one raster tile (no pixel data is read).</p>
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>src/geomosaic/core.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TileInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Metadata of one raster tile (no pixel data is read)."""</span>
+
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">crs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">transform</span><span class="p">:</span> <span class="nb">tuple</span>  <span class="c1"># affine 6-tuple (a, b, c, d, e, f), rasterio order</span>
+    <span class="n">band_count</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">nodata</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.sections"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
