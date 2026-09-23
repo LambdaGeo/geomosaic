@@ -15,6 +15,7 @@ venv/
 .coverage
 coverage.xml
 htmlcov/
+site/
 
 # Local data (never commit rasters)
 *.tif

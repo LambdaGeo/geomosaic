@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/LambdaGeo/geomosaic/actions/workflows/ci.yml/badge.svg)](https://github.com/LambdaGeo/geomosaic/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docs](https://img.shields.io/badge/docs-lambdageo.github.io%2Fgeomosaic-teal)](https://lambdageo.github.io/geomosaic/)
 
 > **Status: Alpha.** The API is small and tested, but may still change before 1.0.
 
@@ -96,8 +97,8 @@ the file(s) involved:
 
 1. the list of tiles is not empty;
 2. all tiles share the same **CRS**;
-3. all tiles share the same **pixel size**, are not rotated, and are
-   north-up;
+3. no tile is rotated, all are north-up, and all share the same
+   **pixel size**;
 4. all tiles share the same **data type**, **nodata** value and
    **band count**;
 5. every tile lands on an **integer pixel offset** of the mosaic grid,
@@ -123,9 +124,15 @@ gdal_translate -of COG -co COMPRESS=LZW -co BIGTIFF=YES \
 
 This is deliberately outside geomosaic, which only builds the mosaic.
 
+## Documentation
+
+Full documentation — concepts, every validation check, recipes and the API
+reference — is at **<https://lambdageo.github.io/geomosaic/>** (source in
+[`docs/`](docs/)).
+
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md). Guidance for AI coding assistants is in [CLAUDE.md](CLAUDE.md).
 
 ## License
 

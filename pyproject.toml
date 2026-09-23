@@ -29,6 +29,7 @@ dependencies = [
 [project.urls]
 Repository = "https://github.com/LambdaGeo/geomosaic"
 Issues = "https://github.com/LambdaGeo/geomosaic/issues"
+Documentation = "https://lambdageo.github.io/geomosaic/"
 
 [project.optional-dependencies]
 dev = [
@@ -36,6 +37,13 @@ dev = [
     "pytest>=7.0",
     "pytest-cov",
     "ruff>=0.16,<0.17",     # pinned minor: ruff's default rule set grows across versions
+]
+# Documentation site (mkdocs.yml); built and deployed by
+# .github/workflows/docs_deploy.yml.
+docs = [
+    "mkdocs>=1.6,<2",           # MkDocs 2.0 drops the plugin/theme system mkdocs-material needs
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.26",
 ]
 
 [tool.setuptools.packages.find]

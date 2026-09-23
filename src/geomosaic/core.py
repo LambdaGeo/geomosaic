@@ -130,8 +130,8 @@ def build_mosaic_contract(
 
     - the list is not empty;
     - all tiles share the same CRS;
-    - all tiles share the same pixel size (within ``resolution_tolerance``);
     - no tile is rotated, and all are north-up (negative pixel height);
+    - all tiles share the same pixel size (within ``resolution_tolerance``);
     - all tiles share the same dtype, nodata value and band count;
     - each tile lands on an *integer* pixel offset of the mosaic grid
       (within ``offset_tolerance_px``), which catches sub-pixel

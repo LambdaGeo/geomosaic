@@ -1,0 +1,50 @@
+site_name: geomosaic
+site_description: Assemble raster tiles into one validated virtual mosaic (VRT)
+site_url: https://lambdageo.github.io/geomosaic/
+repo_url: https://github.com/LambdaGeo/geomosaic
+repo_name: geomosaic
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: teal
+      accent: green
+  features:
+    - content.code.copy
+    - navigation.sections
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ["src"]
+          options:
+            docstring_style: numpy
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            members_order: source
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Concepts: concepts.md
+  - Validation checks: validation.md
+  - Recipes: recipes.md
+  - API reference: api.md
