@@ -75,6 +75,29 @@ at the edge):
 python examples/tiled_export.py
 ```
 
+`examples/mapbiomas_mangue.py` handles multi-band decadal time series and transitions from real-world MapBiomas Google Earth Engine exports. By default, it runs on the 4 bundled sample tiles in `examples/data/mapbiomas_mangue/` and saves the validated VRT directly alongside the tiles (with portable relative paths):
+
+```bash
+# 1. Run on bundled sample tiles (generates examples/data/mapbiomas_mangue/mangue_1985_1994.vrt)
+python examples/mapbiomas_mangue.py
+
+# 2. Run on a full local dataset (generates <product>.vrt files in the dataset folder)
+python examples/mapbiomas_mangue.py /path/to/mapbiomas_export
+
+# 3. Or specify a custom output directory for the .vrt files
+python examples/mapbiomas_mangue.py -o ./mosaics
+```
+
+The resulting `.vrt` can be dragged straight into QGIS, inspected with `gdalinfo`, or read via `rasterio`:
+
+```python
+import rasterio
+
+with rasterio.open("examples/data/mapbiomas_mangue/mangue_1985_1994.vrt") as ds:
+    print(ds.width, ds.height, ds.count, ds.crs)
+    year_1990 = ds.read(6)  # band 6 is year 1990 in the 1985–1994 decade
+```
+
 ## How it works
 
 The workflow has three functions, and the order is enforced by types:

@@ -22,6 +22,8 @@ src/geomosaic/__init__.py  public API re-exports + __version__
 tests/test_core.py         one test per validation check + VRT behaviour
 tests/test_examples.py     runs every script in examples/
 examples/tiled_export.py   synthetic end-to-end example (GEE-style export)
+examples/mapbiomas_mangue.py multi-band MapBiomas time series (bundled sample + real export)
+examples/data/             bundled sample tiles for examples
 docs/                      mkdocs site; docs/api.md is generated from docstrings
 ```
 
@@ -80,9 +82,10 @@ docstrings must stay **numpy style** and render under `mkdocs build --strict`.
   `>=0.16,<0.17` with no explicit `select` (see `[tool.ruff]` in
   `pyproject.toml`). If a pin bump changes results, fix the code or add a
   targeted `ignore` — do not re-pin silently.
-- Tests use synthetic rasters written to `tmp_path`; never commit raster data
-  (`*.tif`, `*.tiff`, `*.vrt` are git-ignored). Examples must also be
-  self-contained (no local paths), since `tests/test_examples.py` runs them.
+- Tests use synthetic rasters written to `tmp_path`; never commit generated
+  raster data (`*.tif`, `*.tiff`, `*.vrt` are git-ignored, except the bundled
+  sample tiles in `examples/data/`). Examples must also be self-contained
+  (no hardcoded local paths), since `tests/test_examples.py` runs them.
 - Keep the public API small; anything new that is public goes in `__all__`.
 
 ## Downstream: haloexec

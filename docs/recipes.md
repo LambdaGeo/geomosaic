@@ -25,6 +25,61 @@ Exports clipped to an area of interest often have **empty grid cells**
 (no tile) and **partial tiles** at the edges. Both are fine: empty cells
 read as nodata, and partial tiles are placed by their own size.
 
+## Assembling multi-band MapBiomas time series (GEE export)
+
+Large-scale land cover initiatives like [MapBiomas](https://brasil.mapbiomas.org/)
+export long time series as partitioned GeoTIFF grids. A single export directory
+commonly holds several decadal series (e.g. 1985–1994, 1995–2004, 2005–2014, 2015–2024),
+where each tile contains **10 bands** (one band per year), alongside auxiliary
+transition products (e.g. 13 bands in `int16`).
+
+Passing the whole directory at once is safely rejected because `geomosaic`
+detects either differing `dtype` (between transition metrics and annual maps)
+or overlapping footprints across the repeated grid:
+
+```python
+from pathlib import Path
+from geomosaic import discover_tiles, build_mosaic_contract, write_vrt
+
+data_dir = Path("data/mapbiomas_export/")
+
+# Define the products sharing the export folder
+products = [
+    ("mangue_1985_1994", "*mangue_1985_1994*"),
+    ("mangue_1995_2004", "*mangue_1995_2004*"),
+    ("mangue_2005_2014", "*mangue_2005_2014*"),
+    ("mangue_2015_2024", "*mangue_2015_2024*"),
+    ("resumo_transicoes", "*resumo_transicoes*"),
+]
+
+for name, pattern in products:
+    tiles = discover_tiles(data_dir, pattern=pattern)
+    contract = build_mosaic_contract(tiles)
+
+    # Preserve all decade bands (10 years) in the VRT
+    vrt_path = write_vrt(
+        contract,
+        data_dir / f"{name}.vrt",
+        bands=list(range(1, contract.band_count + 1)),
+        relative_paths=True,
+    )
+    print(f"Created {vrt_path.name}: {contract.mosaic_width}x{contract.mosaic_height}, {contract.band_count} bands")
+```
+
+To read a single year across tile boundaries (for instance, 1990 is band 6 in the 1985–1994 series):
+
+```python
+import rasterio
+from rasterio.windows import Window
+
+with rasterio.open(data_dir / "mangue_1985_1994.vrt") as ds:
+    # Read year 1990 (band 6) across tile borders seamlessly
+    year_1990 = ds.read(6, window=Window(4000, 4000, 500, 500))
+```
+
+A complete end-to-end executable script supporting both demo simulation and real
+datasets is provided in [`examples/mapbiomas_mangue.py`](https://github.com/LambdaGeo/geomosaic/blob/main/examples/mapbiomas_mangue.py).
+
 ## Multi-band mosaics
 
 By default the VRT carries band 1 of each tile. Choose the source

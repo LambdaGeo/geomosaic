@@ -50,10 +50,13 @@ docs = [
 where = ["src"]
 
 [tool.pytest.ini_options]
+pythonpath = ["src"]
 testpaths = ["tests"]
 filterwarnings = [
     # raised inside rasterio.transform.from_origin (affine >= 3), not by geomosaic
     "ignore:Use `@` matmul instead of `\\*` mul operator:PendingDeprecationWarning",
+    # raised inside rasterio when reading arrays under NumPy 2.5+
+    "ignore:Setting the shape on a NumPy array has been deprecated in NumPy 2.5.*:DeprecationWarning",
 ]
 
 [tool.ruff]

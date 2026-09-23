@@ -17,7 +17,12 @@ coverage.xml
 htmlcov/
 site/
 
-# Local data (never commit rasters)
+# Local data (never commit generated rasters; sample data in examples/data/ is allowed)
 *.tif
 *.tiff
 *.vrt
+*.aux.xml
+!examples/data/**/*.tif
+!examples/data/**/*.tiff
+
+output/
