@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geomosaic"
+version = "0.1.0"
+description = "Assemble raster tiles into one validated virtual mosaic (VRT), independent of any processing engine"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [
+    { name = "Sérgio Costa" }
+]
+keywords = ["raster", "mosaic", "vrt", "gdal", "rasterio", "tiles", "geospatial"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+dependencies = [
+    "rasterio>=1.3",
+]
+
+[project.urls]
+Repository = "https://github.com/LambdaGeo/geomosaic"
+Issues = "https://github.com/LambdaGeo/geomosaic/issues"
+
+[project.optional-dependencies]
+dev = [
+    "numpy>=1.24",          # tests and examples only; the package itself does not import numpy
+    "pytest>=7.0",
+    "pytest-cov",
+    "ruff>=0.16,<0.17",     # pinned minor: ruff's default rule set grows across versions
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = [
+    # raised inside rasterio.transform.from_origin (affine >= 3), not by geomosaic
+    "ignore:Use `@` matmul instead of `\\*` mul operator:PendingDeprecationWarning",
+]
+
+[tool.ruff]
+# Same policy as DisSModel/dissmodel, disscube and haloexec: no explicit
+# `select`, lint with ruff's own default rule set for the pinned minor
+# version (see the `ruff` pin in the `dev` extra). If bumping that pin
+# changes CI results, reconcile by fixing the code or, for a rule that is a
+# bad fit, adding it to an explicit `ignore` here — not by re-pinning
+# silently.
+# line-length is informational: E501 is not in the default rules.
+line-length = 120
+target-version = "py310"
